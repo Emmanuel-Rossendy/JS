@@ -1,58 +1,63 @@
+let perifericos = {
+    "1": { nombre: "Auricular", precio: 2500 },
+    "2": { nombre: "Teclado", precio: 1900 },
+    "3": { nombre: "Parlante", precio: 9000 },
+    "4": { nombre: "Micrófono", precio: 3400 },
+    "5": { nombre: "Webcam", precio: 5000 },
+    "6": { nombre: "Combo de Teclado y Mouse", precio: 5900 },
+    "7": { nombre: "Mouse", precio: 7300 }
+};
+
+let descuento = 0;
+let precioDescuento = 0;
+
 function mostrarCuotas() {
-    let intereses = "sin interes"
-    console.log('Todas nuestras prendas tienen: 👇')
+    let intereses = "sin interés";
+    console.log('Este producto tiene las siguientes opciones de cuotas:');
     for (let i = 1; i <= 12; i++) {
-        if (i >= 6) {
-            intereses = "con interés"
+        if (i >= 4) {
+            intereses = "con interés";
         }
-        console.log ( i + "cuota(s)" + intereses)
+        console.log(i + " cuota(s) " + intereses);
     }
 }
 
 function mostrarPrecio(codigo) {
-    switch (codigo) {
-        case "1":
-            console.log('El precio del Auricular es: $ 2500')
-            break;
+    let periferico = perifericos[codigo];
+    if (periferico) {
+        console.log(`El precio de ${periferico.nombre} es: $${periferico.precio}`);
+    } else {
+        console.error('No entendimos tu selección.');
+    }
+}
 
-        case "2":
-            console.log('El precio del Teclado es: $ 1900')
-            break;
-
-        case "3":
-            console.log('El precio del Parlante es: $ 9000')
-            break;
-
-        case "4":
-            console.log('El precio del Microfono es: $ 3400')
-            break;    
-
-        case "5":
-            console.log('El precio de la Webcam es: $ 5000')
-            break;  
-
-        case "6":
-            console.log('El precio del combo de teclado y mouse es: $ 5900')
-            break;
-
-        case "7":
-            console.log('El precio del Mouse es: $ 7300')
-            break;
-                            
-        default:
-            console.error('No entendimos tu selección.')
-            break;
+function calcularDescuento(codigo) {
+    let periferico = perifericos[codigo];
+    if (periferico) {
+        descuento = periferico.precio * 0.20;
+        precioDescuento = periferico.precio - descuento;
+        console.log("Abonando en efectivo/transferencia tiene 20% de descuento");
+        console.log("Precio total: $" + precioDescuento);
+    } else {
+        console.error('Código de periférico inválido.');
     }
 }
 
 function consultarPeriferico() {
-    let respuesta = confirm('¿Desea consultar el precio de un periférico?')
+    let respuesta = confirm('¿Desea consultar el precio de un periférico?');
     if (respuesta === true) {
-        let codigo = prompt('Ingresa el código numérico del periférico a consultar:')
-        if (codigo === "1" || codigo === "2" || codigo === "3" || codigo === "4" || codigo === "5" || codigo === "6" || codigo === "7") 
-        mostrarPrecio(codigo)
-        mostrarCuotas()
+        let codigo = prompt('Ingresa el código numérico del periférico a consultar:');
+        mostrarPrecio(codigo);
+        let respuestaCuotas = confirm('¿Desea pagar con tarjeta de crédito?');
+        if (respuestaCuotas === true) {
+            mostrarCuotas();
+        } else {
+            let respuestaDescuento = confirm('¿Abona en efectivo/transferencia?');
+            if (respuestaDescuento === true) {
+                calcularDescuento(codigo);
+            }
+        }
     } else {
-        console.warn('No hay problema. Te esperamos cuando gustes')
+        console.warn('No hay problema. Te esperamos cuando gustes.');
     }
 }
