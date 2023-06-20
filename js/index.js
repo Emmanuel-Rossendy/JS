@@ -1,10 +1,3 @@
-/*
-   ✅ Algoritmo con un condicional
-   ✅ Algoritmo con un ciclo
-   ✅ Simulador interactivo
-   ✅ Utilizar funciones
-*/
-
 function mostrarCuotas() {
     let intereses = "sin interes"
     console.log('Todas nuestras prendas tienen: 👇')
